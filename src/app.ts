@@ -1,15 +1,28 @@
-const usr = "Nadir Erkin"; // Testing comment deletion
+class ProjectInput {
+  templateElement: HTMLTemplateElement;
+  hostElement: HTMLDivElement;
+  element: HTMLFormElement;
 
-console.log(`Hello ${usr}`); // Testing tsc --watch
+  constructor() {
+    this.templateElement = document.getElementById(
+      "project-input"
+    ) as HTMLTemplateElement;
 
-interface User {
-  fname: string;
-  lname: string;
-  role: string;
+    this.hostElement = document.getElementById("app") as HTMLDivElement;
+
+    const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    );
+
+    this.element = importedNode.firstElementChild as HTMLFormElement;
+
+    this.attach();
+  }
+
+  attach() {
+    this.hostElement.insertAdjacentElement("afterbegin", this.element);
+  }
 }
 
-function greetUser(usr: User) {
-  console.log(`Hello ${usr.fname} ${usr.lname}`);
-}
-
-greetUser({ fname: "Nadir", lname: "Erkin", role: "Admin" });
+const prjInput = new ProjectInput();
